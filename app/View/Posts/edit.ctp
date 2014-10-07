@@ -1,22 +1,60 @@
-<div class="posts form">
-<?php echo $this->Form->create('Post'); ?>
-	<fieldset>
-		<legend><?php echo __('Edit Post'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('title');
-		echo $this->Form->input('description');
-		echo $this->Form->input('tags');
-		echo $this->Form->input('author');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+<?php echo $this->element('form-top'); ?>
+    <div class="widget-content">
+      <div class="padd">
 
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Post.id')), array(), __('Are you sure you want to delete # %s?', $this->Form->value('Post.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Posts'), array('action' => 'index')); ?></li>
-	</ul>
-</div>
+        <h6>Input Boxs</h6>
+        <hr>
+		<?php echo $this->Form->create('Post',
+			array(
+				'class'=>'form-horizontal uni'
+				)
+			); 
+		?>
+		<?php echo $this->Form->input('id'); ?>
+		
+          <div class="control-group">
+            <label class="control-label" for="title">Title</label>
+	            <div class="controls">
+	            <?php echo $this->Form->input('title',array('class'=>'text','placeholder'=>'title','label'=>false)); ?>
+	            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="description">Description</label>
+	            <div class="controls">
+	            <?php echo $this->Form->input('description',
+	            	array('class'=>'text',
+		            		'placeholder'=>'description',
+		            		'label'=>false,
+		            		'type'=>'textarea'
+	            		)
+	            	); ?>
+	            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="tags">Tags</label>
+	            <div class="controls">
+	            <?php echo $this->Form->input('tags',array('class'=>'text','placeholder'=>'tags','label'=>false)); ?>
+	            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="tags">Author</label>
+	            <div class="controls">
+	            <?php echo $this->Form->input('author',array('class'=>'text','placeholder'=>'author','label'=>false)); ?>
+	            </div>
+          </div>
+
+          <?php echo $this->Form->submit('Save'); ?>
+
+
+        <?php echo $this->Form->end(); ?>
+
+      </div>
+      <div class="widget-foot">
+
+        <!-- Footer goes here -->
+      </div>
+    </div>
+<?php echo $this->element('form-bottom'); ?>
