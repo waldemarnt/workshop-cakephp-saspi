@@ -2,14 +2,16 @@
 
   <!-- Page heading -->
   <div class="page-head">
-    <h2 class="pull-left"><i class="icon-tasks"></i> Forms</h2>
-
+    <h2 class="pull-left">
+    <i class="icon-tasks"></i>
+     <?php echo ucfirst($this->params['controller']); ?>
+     </h2>
     <!-- Breadcrumb -->
     <div class="bread-crumb pull-right">
-      <a href="index.html"><i class="icon-home"></i> Home</a> 
+      <a href="<?php echo $this->Html->url('/'); ?>"><i class="icon-home"></i> Home</a> 
       <!-- Divider -->
       <span class="divider">/</span> 
-      <a href="#" class="bread-current">Dashboard</a>
+      <a href="<?php echo $this->Html->url('/'.$this->params['controller']); ?>" class="bread-current"><?php echo ucfirst($this->params['controller']); ?></a>
     </div>
 
     <div class="clearfix"></div>

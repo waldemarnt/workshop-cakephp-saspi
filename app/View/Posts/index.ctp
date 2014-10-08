@@ -44,12 +44,23 @@
                               <button class="btn btn-mini btn-warning"><i class="icon-pencil"></i> </button>
 
                            </a>
-                           <a href="<?php echo $this->Html->url('/posts/delete/'.$post['Post']['id']);?>">
-
-                              <button class="btn btn-mini btn-danger"><i class="icon-remove"></i> </button>
-                            </a>
+                          <?php  echo $this->Form->postLink(
+                    		'<button class="btn btn-mini btn-danger">
+                         		<i class="icon-remove"></i>
+                     		</button>',
+		                    array(
+		                          'action'   => 'delete', $post['Post']['id']
+		                          ),
+		                    array(
+		                          'class'    => 'tip',
+		                          'escape'   => false,
+		                          'confirm'  => 'Are you sure ?'
+		                         ));
+                         	?>
                           
                           </td>
+
+
                         </tr>
                     <?php endforeach; ?>                                                           
 

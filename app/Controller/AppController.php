@@ -32,6 +32,57 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
-	public $components = array('Session');
+	public $components = array('Session','Notification','Auth');
 
+	public $helpers = array(
+		'Session',
+		'Form'
+		);
+
+	function beforeFilter()
+	{
+		$this->Auth->authenticate = array(
+			AuthComponent::ALL =>array(
+				'UserModel'=>'User',
+				'fields'=>array(
+					'username'=>'email',
+					'password'=>'password'
+					)
+				),
+			'Form',
+			);
+
+		$this->Auth->authorize = "Controller";
+
+		$this->Auth->loginAction = array(
+			'plugin'=>null,
+			'controller'=>'users',
+			'action'=>'login'
+			);
+
+		$this->Auth->logoutRedirect = array(
+			'plugin'=>null,
+			'controller'=>'users',
+			'action'=>'login'
+			);
+
+		$this->Auth->loginRedirect = array(
+			'plugin'=>null,
+			'controller'=>'products',
+			'action'=>'index'
+			);
+
+		$this->Auth->error=__('Erro , você não logou!');
+
+		$this->Auth->allowedActions = array('add','resetpassword','login');
+
+	}
+
+	public function isAuthorized($user)
+	{
+		if(!empty($this->request->params['admin'])) {
+			return $user['role_id'] == 1;
+		}
+		return !empty($user);
+	}
 }

@@ -15,6 +15,10 @@ class UsersController extends AppController {
  */
 	public $components = array('Paginator');
 
+public function beforeFilter(){
+	$this->Auth->allow(array('add','index'));
+}
+
 /**
  * index method
  *
@@ -100,5 +104,15 @@ class UsersController extends AppController {
 			$this->Session->setFlash(__('The user could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index'));
+	}
+
+	public function login(){
+		$this->layout = 'login';
+		if($this->request->is('post')){
+			if($this->Auth->login()){
+				$this->redirect($this->Auth->redirect());
+			}
+		$this->Session->setFlash('Erro dados inválidos','topRight','error',15000);
+		}		
 	}
 }
