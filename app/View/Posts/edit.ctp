@@ -46,6 +46,21 @@
 	            </div>
           </div>
 
+          <div class="control-group">
+            <label class="control-label" for="category">Category</label>
+	            <div class="controls">
+	            <?php echo $this->Form->input(
+	            	'Category',
+	            	array(
+			            'label'=>false,
+			            'id'=>'category',
+			            'multiple'
+		            )
+	            ); 
+	            ?>
+	            </div>
+          </div>
+   
           <?php echo $this->Form->submit('Save'); ?>
 
 

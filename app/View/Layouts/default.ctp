@@ -39,6 +39,7 @@
 			'bootstrap-toggle-buttons',
 			'style',
 			'bootstrap-responsive',
+			'select2'
 			)
 		);
 
@@ -67,8 +68,10 @@
 				'jquery.uniform.min',
 				'jquery.toggle.buttons',
 				'filter',
-				'custom',
-				'charts'
+				'charts',
+				'select2',
+				'custom'
+
 				)
 			);
 

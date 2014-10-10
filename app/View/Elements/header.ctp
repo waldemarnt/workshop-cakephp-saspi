@@ -6,8 +6,9 @@
         <div class="span4">
           <!-- Logo. -->
           <div class="logo">
-            <h1><a href="#">Mac<span class="bold">Admin</span></a></h1>
-            <p class="meta">something goes in meta area</p>
+            <h1><a href="<?php echo $this->Html->url('/') ?>">
+            Blog<span class="bold">Admin</span></a></h1>
+            <p class="meta">blog do jairo</p>
           </div>
           <!-- Logo ends -->
         </div>

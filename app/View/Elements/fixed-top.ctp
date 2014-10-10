@@ -79,14 +79,14 @@
         <ul class="nav pull-right">
           <li class="dropdown pull-right">            
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-              <i class="icon-user"></i> Admin <b class="caret"></b>              
+              <i class="icon-user"></i> 
+                <?php echo $this->Session->read('Auth.User.name'); ?> 
+              <b class="caret"></b>              
             </a>
-            
             <!-- Dropdown menu -->
             <ul class="dropdown-menu">
-              <li><a href="#"><i class="icon-user"></i> Profile</a></li>
-              <li><a href="#"><i class="icon-cogs"></i> Settings</a></li>
-              <li><a href="login.html"><i class="icon-off"></i> Logout</a></li>
+              <li><a href="<?php echo $this->Html->url('/users/logout'); ?>">
+              <i class="icon-off"></i> Logout</a></li>
             </ul>
           </li>
           

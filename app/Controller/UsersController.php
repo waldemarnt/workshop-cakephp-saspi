@@ -13,11 +13,12 @@ class UsersController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+public $components = array('Paginator');
 
-public function beforeFilter(){
-	$this->Auth->allow(array('add','index'));
-}
+// public function beforeFilter(){
+// 	parent::beforeFilter();
+// 	$this->Auth->allow(array('add','index'));
+// }
 
 /**
  * index method
@@ -114,5 +115,9 @@ public function beforeFilter(){
 			}
 		$this->Session->setFlash('Erro dados inválidos','topRight','error',15000);
 		}		
+	}
+
+	public function logout() {
+		$this->redirect($this->Auth->logout());
 	}
 }

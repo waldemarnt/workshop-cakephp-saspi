@@ -2,7 +2,7 @@
     <div class="widget-content">
       <div class="padd">
 
-        <h6>Input Boxs</h6>
+        <h6>Add User</h6>
         <hr>
 		<?php echo $this->Form->create('User',
 			array(
@@ -10,7 +10,7 @@
 				)
 			); 
 		?>
-
+		
           <div class="control-group">
             <label class="control-label" for="name">Name</label>
 	            <div class="controls">
@@ -19,7 +19,7 @@
           </div>
 
           <div class="control-group">
-            <label class="control-label" for="email">email</label>
+            <label class="control-label" for="email">Email</label>
 	            <div class="controls">
 	            <?php echo $this->Form->input('email',
 	            	array('class'=>'text',
@@ -31,7 +31,7 @@
           </div>
 
           <div class="control-group">
-            <label class="control-label" for="password">password</label>
+            <label class="control-label" for="password">Password</label>
 	            <div class="controls">
 	            <?php echo $this->Form->input('password',array('class'=>'text','placeholder'=>'password','label'=>false)); ?>
 	            </div>
@@ -40,7 +40,7 @@
           <div class="control-group">
             <label class="control-label" for="born_date">born date</label>
 	            <div class="controls">
-	            <?php echo $this->Form->input('born_date',array('class'=>'date','placeholder'=>'born date','label'=>false)); ?>
+	            <?php echo $this->Form->input('born_date',array('class'=>'text','placeholder'=>'born_date','type'=>'date','label'=>false)); ?>
 	            </div>
           </div>
 

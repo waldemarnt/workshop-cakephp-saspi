@@ -20,6 +20,7 @@
  */
 
 App::uses('Controller', 'Controller');
+App::uses('AuthComponent', 'Controller/Component');
 
 /**
  * Application Controller
@@ -52,7 +53,7 @@ class AppController extends Controller {
 			'Form',
 			);
 
-		$this->Auth->authorize = "Controller";
+		$this->Auth->authorize = array("Controller");
 
 		$this->Auth->loginAction = array(
 			'plugin'=>null,
@@ -80,9 +81,6 @@ class AppController extends Controller {
 
 	public function isAuthorized($user)
 	{
-		if(!empty($this->request->params['admin'])) {
-			return $user['role_id'] == 1;
-		}
-		return !empty($user);
+		return true;
 	}
 }

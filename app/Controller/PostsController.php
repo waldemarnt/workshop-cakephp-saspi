@@ -13,7 +13,7 @@ class PostsController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('Paginator','RequestHandler');
 
 /**
  * index method
@@ -21,7 +21,7 @@ class PostsController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->Post->recursive = 0;
+		$this->Post->recursive = 1;
 		$this->set('posts', $this->Paginator->paginate());
 	}
 
@@ -55,6 +55,8 @@ class PostsController extends AppController {
 				$this->Session->setFlash($this->Notification->send('Error Post not saved!','topRight','error',15000));
 			}
 		}
+
+		$this->set('categories',$this->Post->Category->find('list'));
 	}
 
 /**
@@ -78,7 +80,9 @@ class PostsController extends AppController {
 		} else {
 			$options = array('conditions' => array('Post.' . $this->Post->primaryKey => $id));
 			$this->request->data = $this->Post->find('first', $options);
+			$this->set('categories',$this->Post->Category->find('list'));
 		}
+
 	}
 
 /**
@@ -100,5 +104,15 @@ class PostsController extends AppController {
 			$this->Session->setFlash($this->Notification->send('Error Post not deleted','topRight','error',15000));
 		}
 		return $this->redirect(array('action' => 'index'));
+	}
+
+
+	public function returnAllJson(){
+		$this->render = false;
+		$test = $this->Post->find('all');
+
+		$this->set(compact('test'));
+
+		$this->set('_serialize',array('test'));
 	}
 }
