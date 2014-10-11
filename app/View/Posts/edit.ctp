@@ -6,7 +6,8 @@
         <hr>
 		<?php echo $this->Form->create('Post',
 			array(
-				'class'=>'form-horizontal uni'
+				'class'=>'form-horizontal uni',
+				'type'=>'file'
 				)
 			); 
 		?>
@@ -35,7 +36,12 @@
           <div class="control-group">
             <label class="control-label" for="tags">Tags</label>
 	            <div class="controls">
-	            <?php echo $this->Form->input('tags',array('class'=>'text','placeholder'=>'tags','label'=>false)); ?>
+	            <?php echo $this->Form->input('tags',
+		            	array('placeholder'=>'tags',
+		            	'label'=>false,
+		            	'id'=>'inputTags'
+		            	)
+	            	); ?>
 	            </div>
           </div>
 
@@ -49,18 +55,34 @@
           <div class="control-group">
             <label class="control-label" for="category">Category</label>
 	            <div class="controls">
-	            <?php echo $this->Form->input(
-	            	'Category',
+	            <?php echo $this->Form->input('Category',
 	            	array(
-			            'label'=>false,
-			            'id'=>'category',
-			            'multiple'
+		            'label'=>false,
+		            'id'=>'category',
+		            'multiple'
 		            )
 	            ); 
 	            ?>
 	            </div>
           </div>
-   
+           
+           <?php echo $this->Html->image(
+	           'uploads/'.$this->data['Media'][0]['name'],
+	           array('style'=>'max-height:200px;')
+           ) 
+           ?>
+
+           <div class='file-checkbox'>
+            <label>File Upload</label>
+            <?php echo $this->Form->file('Media.file',
+            	array(
+            		'class'=>'file',
+            		'type'=>'file',
+            		'label'=>false
+            		)
+            	);
+            ?>
+          </div>
           <?php echo $this->Form->submit('Save'); ?>
 
 

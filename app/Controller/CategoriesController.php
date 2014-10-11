@@ -1,56 +1,108 @@
-<?php 
+<?php
+App::uses('AppController', 'Controller');
+/**
+ * Categories Controller
+ *
+ * @property Category $Category
+ * @property PaginatorComponent $Paginator
+ */
+class CategoriesController extends AppController {
 
+/**
+ * Components
+ *
+ * @var array
+ */
+	public $components = array('Paginator');
 
-
-
-class CategoriesController extends AppController{
-
-
-
-	public function index()
-	{
-		$this->set('categories',$this->Category->find('all'));
+/**
+ * index method
+ *
+ * @return void
+ */
+	public function index() {
+		$this->Category->recursive = 0;
+		$this->set('categories', $this->Paginator->paginate());
 	}
 
-	public function add()
-	{
-		if($this->request->is('post')) {
+/**
+ * view method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function view($id = null) {
+		if (!$this->Category->exists($id)) {
+			throw new NotFoundException(__('Invalid category'));
+		}
+		$options = array('conditions' => array('Category.' . $this->Category->primaryKey => $id));
+		$this->set('category', $this->Category->find('first', $options));
+	}
+
+/**
+ * add method
+ *
+ * @return void
+ */
+	public function add() {
+		if ($this->request->is('post')) {
 			$this->Category->create();
-			if($this->Category->save($this->request->data)){
-				$this->Session->setFlash('Category has been created');
-
-				return $this->redirect(array('action'=>'index'));
+			if ($this->Category->save($this->request->data)) {
+				$this->Session->setFlash(__('The category has been saved.'));
+				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The category could not be saved. Please, try again.'));
 			}
-
-			$this->Session->setFlash('Error Category not saved!');
 		}
+		$posts = $this->Category->Post->find('list');
+		$this->set(compact('posts'));
 	}
 
-
-	public function edit($id = null)
-	{
-		if($this->request->is(array('post','put'))) {
-			
-			if($this->Category->save($this->request->data)){
-				$this->Session->setFlash('Category has been modified');
-
-				return $this->redirect(array('action'=>'index'));
-			}
-
-			$this->Session->setFlash('Error Category not saved!');
+/**
+ * edit method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function edit($id = null) {
+		if (!$this->Category->exists($id)) {
+			throw new NotFoundException(__('Invalid category'));
 		}
-
-		$this->request->data = $this->Category->findById($id);
+		if ($this->request->is(array('post', 'put'))) {
+			if ($this->Category->save($this->request->data)) {
+				$this->Session->setFlash(__('The category has been saved.'));
+				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The category could not be saved. Please, try again.'));
+			}
+		} else {
+			$options = array('conditions' => array('Category.' . $this->Category->primaryKey => $id));
+			$this->request->data = $this->Category->find('first', $options);
+		}
+		$posts = $this->Category->Post->find('list');
+		$this->set(compact('posts'));
 	}
 
-	public function delete($id = null)
-	{
+/**
+ * delete method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function delete($id = null) {
 		$this->Category->id = $id;
-		
-		if($this->Category->delete()){
-			return $this->Session->setFlash('Category has been removed');
+		if (!$this->Category->exists()) {
+			throw new NotFoundException(__('Invalid category'));
 		}
-		$this->Session->setFlash('Error Category not removed');
+		$this->request->allowMethod('post', 'delete');
+		if ($this->Category->delete()) {
+			$this->Session->setFlash(__('The category has been deleted.'));
+		} else {
+			$this->Session->setFlash(__('The category could not be deleted. Please, try again.'));
+		}
+		return $this->redirect(array('action' => 'index'));
 	}
-
 }

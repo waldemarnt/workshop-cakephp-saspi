@@ -69,8 +69,8 @@
 				'jquery.toggle.buttons',
 				'filter',
 				'charts',
-				'select2',
-				'custom'
+				'custom',				
+				'select2'
 
 				)
 			);

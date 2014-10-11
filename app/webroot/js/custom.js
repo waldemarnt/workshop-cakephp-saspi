@@ -19,6 +19,12 @@ $(document).ready(function(){
     width:"300px"
   });
 
+  $('#inputTags').select2({
+    tags:['humor','tecnologia','tutoriais'],
+    width:"214px"
+  });
+
+
   $("#nav > li > a").on('click',function(e){
       if($(this).parent().hasClass("has_sub")) {
         e.preventDefault();

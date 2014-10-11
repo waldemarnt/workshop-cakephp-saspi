@@ -1,5 +1,7 @@
 <?php
 App::uses('AppController', 'Controller');
+App::uses('Media', 'Plugin');
+
 /**
  * Posts Controller
  *
@@ -14,7 +16,6 @@ class PostsController extends AppController {
  * @var array
  */
 	public $components = array('Paginator','RequestHandler');
-
 /**
  * index method
  *
@@ -46,9 +47,17 @@ class PostsController extends AppController {
  * @return void
  */
 	public function add() {
+		//$this->loadModel('Media.Media');
 		if ($this->request->is('post')) {
 			$this->Post->create();
 			if ($this->Post->save($this->request->data)) {
+
+				$this->Post->Media->create();
+				$this->Post->Media->set('model_id',$this->Post->getLastInsertId());
+				$this->Post->Media->set('model_name','Post');
+				$this->Post->Media->set('file',$this->request->data['Media']['file']);
+				$this->Post->Media->save();
+
 				$this->Session->setFlash($this->Notification->send('Post Has been Saved','topRight','success',15000));
 				return $this->redirect(array('action' => 'index'));
 			} else {
@@ -71,7 +80,15 @@ class PostsController extends AppController {
 			throw new NotFoundException(__('Invalid post'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
+
 			if ($this->Post->save($this->request->data)) {
+
+				$this->Post->Media->create();
+				$this->Post->Media->set('model_id',$id);
+				$this->Post->Media->set('model_name','Post');
+				$this->Post->Media->set('file',$this->request->data['Media']['file']);
+				$this->Post->Media->save();
+
 				$this->Session->setFlash($this->Notification->send('Post Has been Saved','topRight','success',15000));
 				return $this->redirect(array('action' => 'index'));
 			} else {

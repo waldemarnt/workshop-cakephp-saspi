@@ -6,7 +6,8 @@
         <hr>
 		<?php echo $this->Form->create('Post',
 			array(
-				'class'=>'form-horizontal uni'
+				'class'=>'form-horizontal uni',
+				'type'=>'file'
 				)
 			); 
 		?>
@@ -34,7 +35,12 @@
           <div class="control-group">
             <label class="control-label" for="tags">Tags</label>
 	            <div class="controls">
-	            <?php echo $this->Form->input('tags',array('placeholder'=>'tags','multiple','label'=>false)); ?>
+	            <?php echo $this->Form->input('tags',
+		            	array('placeholder'=>'tags',
+		            	'label'=>false,
+		            	'id'=>'inputTags'
+		            	)
+	            	); ?>
 	            </div>
           </div>
 
@@ -63,6 +69,17 @@
 	            </div>
           </div>
 
+          <div class='file-checkbox'>
+            <label>File Upload</label>
+            <?php echo $this->Form->file('Media.file',
+            	array(
+            		'class'=>'file',
+            		'type'=>'file',
+            		'label'=>false
+            		)
+            	);
+            ?>
+          </div>
 
           <?php echo $this->Form->submit('Save'); ?>
 

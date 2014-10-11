@@ -1,5 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
+App::uses('Media', 'Plugin');
+
 /**
  * Post Model
  *
@@ -53,6 +55,17 @@ class Post extends AppModel {
                 'associationForeignKey' => 'category_id',
                 'unique' => true
             )
+    );
+
+    public $hasMany = array(
+    	'Media'=>
+	    	array(
+	    		'className'=>'Media.Media',
+	    		'foreignKey'=>'model_id',
+	    		'conditions'=>array(
+	    				'Media.model_name' => 'Post'
+	    			)
+	    	)
     );
 
 }
